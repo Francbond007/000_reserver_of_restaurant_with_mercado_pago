@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!--========== INTEGRACION DE MERCADO PAGO ==========-->
+    <script src="https://sdk.mercadopago.com/js/v2"></script>
+    <!--========== BOX ICONS ==========-->
+    <link href="https://cdn.jsdelivr.net/npm/boxicons@2.0.5/css/boxicons.min.css" rel="stylesheet" />
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBNRzH5f8HziMaK8v69SHp_7lnzvXvljGA&libraries=places"></script>
+    <!--========== CSS ==========-->
+    <link rel="stylesheet" href="css/styles.css" />
+
+    <title>SpaceXTech</title>
+  </head>
+  <body>
+    <!--========== SCROLL TOP ==========-->
+    <a href="#" class="scrolltop" id="scroll-top">
+      <i class="bx bx-chevron-up scrolltop__icon"></i>
+    </a>
+
+    <!--========== HEADER ==========-->
+    <header class="l-header" id="header">
+      <nav class="nav bd-container">
+        <a href="#" class="nav__logo">NOMBRE DE EMPRESA</a>
+
+        <div class="nav__menu" id="nav-menu">
+          <ul class="nav__list">
+            <li class="nav__item"><a href="#home" class="nav__link active-link">Inicio</a></li>
+            <li class="nav__item"><a href="#menu" class="nav__link">Menú</a></li>
+            <li class="nav__item"><a href="#cart" class="nav__link">Carrito</a></li>
+            <li class="nav__item"><a href="#contact" class="nav__link">Sobre Nosotros</a></li>
+
+            <li><i class="bx bx-moon change-theme" id="theme-button"></i></li>
+          </ul>
+        </div>
+
+        <div class="nav__toggle" id="nav-toggle">
+          <i class="bx bx-menu"></i>
+        </div>
+      </nav>
+    </header>
+
+    <main class="l-main">
+      <!--========== HOME ==========-->
+      <section class="home" id="home">
+        <div class="home__container bd-container bd-grid">
+          <div class="home__data">
+            <h1 class="home__title">Título 1</h1>
+            <h2 class="home__subtitle">
+              Acá podes colocar <br />
+              un sub-título.
+            </h2>
+            <a href="#menu" class="button">Ver Menú</a>
+          </div>
+
+          <img src="img/home.png" alt="" class="home__img" />
+        </div>
+      </section>
+
+      <!--========== MENU ==========-->
+      <section class="menu section bd-container" id="menu">
+        <span class="section-subtitle">Menú</span>
+        <h2 class="section-title">Acá podes colocar una descripción</h2>
+
+        <div class="menu__container bd-grid">
+          <div class="menu__content">
+            <img src="img/plate1.png" alt="" class="menu__img" />
+            <h3 class="menu__name">Menú 1</h3>
+            <span class="menu__detail">Descripción del menú</span>
+            <span class="menu__preci">$1000.00</span>
+            <!-- Desplegable para la cantidad y botón para agregar al carrito -->
+            <select class="menu__quantity">
+              <option value="0">0</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+            </select>
+          </div>
+
+          <div class="menu__content">
+            <img src="img/plate2.png" alt="" class="menu__img" />
+            <h3 class="menu__name">Menú 2</h3>
+            <span class="menu__detail">Descripción del menú</span>
+            <span class="menu__preci">$1100.00</span>
+            <!-- Desplegable para la cantidad y botón para agregar al carrito -->
+            <select class="menu__quantity">
+              <option value="0">0</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+            </select>
+          </div>
+
+          <div class="menu__content">
+            <img src="img/plate3.png" alt="" class="menu__img" />
+            <h3 class="menu__name">Menú 3</h3>
+            <span class="menu__detail">Descripción del menú</span>
+            <span class="menu__preci">$1200.00</span>
+            <!-- Desplegable para la cantidad y botón para agregar al carrito -->
+            <select class="menu__quantity">
+              <option value="0">0</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+            </select>
+          </div>
+
+          <div class="menu__content">
+            <img src="img/plate4.png" alt="" class="menu__img" />
+            <h3 class="menu__name">Menú 4</h3>
+            <span class="menu__detail">Descripción del menú</span>
+            <span class="menu__preci">$1800.00</span>
+            <!-- Desplegable para la cantidad y botón para agregar al carrito -->
+            <select class="menu__quantity">
+              <option value="0">0</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+            </select>
+          </div>
+        </div>
+      </section>
+
+      <!--========== CART ==========-->
+      <section class="cart section bd-container" id="cart">
+        <h2 class="section-title">Carrito de compras</h2>
+        <ul id="cart-items">
+          <!-- Los productos seleccionados se mostrarán aquí -->
+        </ul>
+        <p>Cantidad total de productos: <span id="total-quantity">0</span></p>
+        <!-- Agrega este elemento para mostrar la cantidad total -->
+        <p>Total a pagar: $<span id="total-price">0.00</span></p>
+
+        <br />
+        <br />
+        <input type="text" id="optional" class="customer-name-input" placeholder="Aclaraciones" required />
+        <input type="text" id="customer-name" class="customer-name-input" placeholder="Tu nombre" required />
+        <input type="text" class="customer-name-input" id="address" placeholder="Tu dirección de entrega" required />
+
+        <button id="checkout">Checkout</button>
+        <!-- Contenedor del botón de Mercado Pago -->
+        <!-- <div id="button-checkout"></div> -->
+      </section>
+
+      <!-- Mensaje de agradecimiento -->
+      <div class="checkout-modal" id="checkout-modal">
+        <div class="checkout-modal-content">
+          <h2>Gracias por tu compra</h2>
+          <!--Se agrega algo de Feedback-->
+          <p>Por favor, realiza el pago a través de Mercado Pago.</p>
+          <p>Al finalizar serás redirigido a WhatsApp para contactar con nosotros.</p>
+          <!-- Contenedor del botón de Mercado Pago -->
+          <div id="button-checkout"></div>
+          <!-- <button id="close-modal">Finalizar compra</button> -->
+        </div>
+      </div>
+
+      <!--========== CONTACT US ==========-->
+      <section class="contact section bd-container" id="contact">
+        <div class="contact__container bd-grid">
+          <div class="contact__data">
+            <span class="section-subtitle contact__initial">Hablemos!</span>
+            <h2 class="section-title contact__initial">Contáctenos</h2>
+            <p class="contact__description">Acá podes colocar una descripción</p>
+          </div>
+
+          <div class="contact__button">
+            <a href="#" class="button">Coctáctenos ahora</a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!--========== FOOTER ==========-->
+    <footer class="footer section bd-container">
+      <div class="footer__container bd-grid">
+        <div class="footer__content">
+          <a href="#" class="footer__logo">Nombre de empresa </a>
+          <span class="footer__description">Eslogan</span>
+          <div>
+            <a href="#" class="footer__social"><i class="bx bxl-facebook"></i></a>
+            <a href="#" class="footer__social"><i class="bx bxl-instagram"></i></a>
+            <a href="#" class="footer__social"><i class="bx bxl-twitter"></i></a>
+          </div>
+        </div>
+
+        <div class="footer__content">
+          <h3 class="footer__title">Servicios</h3>
+          <ul>
+            <li><a href="#" class="footer__link">Servicio 1</a></li>
+            <li><a href="#" class="footer__link">Servicio 2</a></li>
+            <li><a href="#" class="footer__link">Servicio 3</a></li>
+          </ul>
+        </div>
+
+        <div class="footer__content">
+          <h3 class="footer__title">Información</h3>
+          <ul>
+            <li><a href="#" class="footer__link">Eventos</a></li>
+            <li><a href="#" class="footer__link">Contáctenos</a></li>
+            <li><a href="#" class="footer__link">Ofertas</a></li>
+            <li><a href="#" class="footer__link">Temas de servicios</a></li>
+          </ul>
+        </div>
+
+        <div class="footer__content">
+          <h3 class="footer__title">Dirección</h3>
+          <ul>
+            <li>Buenos Aires</li>
+            <li>Obelisco</li>
+            <li>011-1111-2222</li>
+            <li>nombredeempresa@email.com</li>
+          </ul>
+        </div>
+      </div>
+
+      <p class="footer__copy">&#169; 2023 SpaceXTech | Todos los Derechos Reservados.</p>
+    </footer>
+
+    <!--========== SCROLL REVEAL ==========-->
+    <script src="https://unpkg.com/scrollreveal"></script>
+
+    <!--========== MAIN JS ==========-->
+    <script src="js/main.js"></script>
+  </body>
+</html>

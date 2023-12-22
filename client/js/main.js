@@ -79,9 +79,14 @@ document.addEventListener("DOMContentLoaded", function () {
   // Evento para realizar el checkout
   const checkoutButton = document.getElementById("checkout");
   checkoutButton.addEventListener("click", function () {
-    const customerName = document.getElementById("customer-name").value;
-    const optional = document.getElementById("optional").value;
+    const customerName = document.getElementById("customer-name").value + "!";
+    let optional = document.getElementById("optional").value.trim();
     const address = document.getElementById("address").value;
+
+    // Verificar si optional está vacío y asignar el mensaje predeterminado
+    if (!optional) {
+      optional = "Ninguna";
+    }
 
     // Realiza las validaciones
     let errorMessage = "";
@@ -104,13 +109,21 @@ document.addEventListener("DOMContentLoaded", function () {
         message += `${item.product} (x${item.quantity}) - $${(item.price * item.quantity).toFixed(2)}\n\n`;
       });
 
-      message += `*Total: $${total.toFixed(2)}*\n\n`;
+      message += `Total: $${total.toFixed(2)}*\n\n`;
       message += `Este requisito: *${optional}*\n\n`;
       message += `Dirección de entrega: *${address}*\n\n`;
       message += `A nombre de: *${customerName}*`;
 
       //CONSTRUYE LA ORDEN PARA ENVIAR A MERCADO PAGO
       const orderData = {
+        customerName: customerName,
+        address: address,
+        optional: optional,
+        items: cart.map((item) => ({
+          product: item.product,
+          quantity: item.quantity,
+          price: item.price.toFixed(2),
+        })),
         quantity: 1,
         description: message,
         price: total,
